@@ -14,6 +14,14 @@ const films = [
   budget : 5000,
   link : "https://www.allocine.fr/film/fichefilm_gen_cfilm=298674.html"
 }
+
+{
+    id : 3,
+    title : "jsp",
+    duration : 123,
+    budget : 5000,
+    link : "https://www.allocine.fr/film/fichefilm_gen_cfilm=298674.html"
+  }
 ];
 
 module.exports = router;
