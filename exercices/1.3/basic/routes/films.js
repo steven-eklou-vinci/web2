@@ -28,15 +28,16 @@ const films = [
 
 // Read all the films whit the de gives sorted method
 router.get('/', function (req, res,next) {
-  const orderByTheRessource = req?.query?.order?.includes('duration')
-  ? req.query.order
+  const filter = req?.query?.['minimum-duration']
+  ? Number (req.query['minimum-duration'])
   : undefined;
-  console.log(`order by ${orderByTheRessource ?? 'not requested'}`);
-  if (orderByTheRessource){
-    orderedFilms = [...films].sort((a, b)=> a.duration -b.duration);
+  console.log(filter);
+  if(filter!=undefined && typeof filter==='number'){
+    const filterFilms = films.filter((film)=>film.duration >= filter)
+    console.log("je passe par ici")
+    return res.json(filterFilms );
   }
-    console.log('GET /films')
-    res.json(orderedFilms ?? films);
+  res.json(films )
 });
 
 // Read the films whith the id
