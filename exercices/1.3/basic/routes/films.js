@@ -26,7 +26,7 @@ const films = [
 ];
 
 
-// Read all the films whit the de gives sorted method
+// Read all the films whith a minimum duration
 router.get('/', function (req, res,next) {
   const filter = req?.query?.['minimum-duration']
   ? Number (req.query['minimum-duration'])
@@ -46,5 +46,34 @@ router.get('/:id', function (req, res,next) {
   const indexFilms = films.findIndex((film)=>film.id==req.params.id);
   if(indexFilms<0) return res.sendStatus(404);
   res.json(films[indexFilms]);
+});
+
+//Create a new film
+//Pourquoi on ne mets juste pas != ??
+router.post('/',(req,res)=>{
+const title = req?.body?.title.length !== 0 ? req.body.title : undefined;
+const duration = req?.body?.duration >0 ? req.body.duration : undefined;
+const budget = req?.body?.budget;
+
+const link = req?.body?.link.length !== 0 ? req.body.link.length : undefined;
+
+if( !title || !duration || !budget || !link) return res.status(400).send("Bad Request: Missing required fields.");
+if (isNaN(duration) || isNaN(budget)) return res.status(400).send('Bad Request: Duration and budget must be numbers.');
+
+
+//pq films[lastItemIndex]?.id
+const lastItemIndex = films?.length !==0 ? films.length-1 : undefined;
+const lastId =  lastItemIndex !== undefined ? films[lastItemIndex].id : 0;
+const nextId = lastId + 1;
+
+const newFilm = {
+  id : nextId,
+  title : title,
+  duration : duration,
+  budget : budget,
+  link :link
+};
+films.push(newFilm);
+res.json(newFilm)
 });
 module.exports = router;

@@ -1,0 +1,15 @@
+
+@baseUrl = http://localhost:3000
+### Create a film 
+POST {{baseUrl}}/films
+Content-Type: application/json
+
+{
+    "title": "One piece jsp",
+    "duration": 200,
+    "budget": 517,
+    "link": "https://fr.wikipedia.org/wiki/Naruto_Shippuden:_Blood_Prison"
+}
+
+### READ all the films
+GET {{baseUrl}}/films
