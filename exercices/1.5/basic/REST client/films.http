@@ -5,7 +5,7 @@ POST {{baseUrl}}/films
 Content-Type: application/json
 
 {
-    "title": "One piece jsp",
+    "title": "Bleach",
     "duration": 200,
     "budget": 517,
     "link": "https://fr.wikipedia.org/wiki/Naruto_Shippuden:_Blood_Prison"

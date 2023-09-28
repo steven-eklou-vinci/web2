@@ -59,6 +59,10 @@ const link = req?.body?.link.length !== 0 ? req.body.link.length : undefined;
 
 if( !title || !duration || !budget || !link) return res.status(400).send("Bad Request: Missing required fields.");
 if (isNaN(duration) || isNaN(budget)) return res.status(400).send('Bad Request: Duration and budget must be numbers.');
+const ifAlreadyTitle = films.some(film=> film.title===title);
+if(title==="Bleach") return res.status(404).send("There's none films called " + title + " in the world :(");
+if(ifAlreadyTitle) return res.status(409).send("There's already a film named " + title + " :(");
+
 
 
 //pq films[lastItemIndex]?.id
