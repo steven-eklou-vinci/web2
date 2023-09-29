@@ -109,6 +109,7 @@ router.patch('/:id',(req,res) => {
 
 router.put('/:id',(req,res) => {
   console.log(`GET /films/${req.params.id}`);
+  //test
   const id = req?.params.id
   const title = req?.body?.title;
   const duration = req?.body?.duration;
