@@ -120,9 +120,9 @@ router.put('/:id',(req,res) => {
   console.log(indexFilms);
   if(indexFilms===-1){
     console.log("Je suis iciiiii")
-    const lastItemIndex = films?.length !==0 ? films.length-1 : undefined;
-    const lastId =  lastItemIndex !== undefined ? films[lastItemIndex].id : 0;
-    const nextId = lastId + 1;
+    //const lastItemIndex = films?.length !==0 ? films.length-1 : undefined;
+    //const lastId =  lastItemIndex !== undefined ? films[lastItemIndex].id : 0;
+    const nextId = films.length + 1;
     const newFilm = {
       id : nextId,
       title : title,
