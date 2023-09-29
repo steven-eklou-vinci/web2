@@ -90,4 +90,53 @@ router.delete('/:id',(req,res) => {
   res.json(theRemovedElement);
 });
 
+router.patch('/:id',(req,res) => {
+  console.log(`GET /films/${req.params.id}`);
+  const title = req?.body?.title;
+  const duration = req?.body?.duration;
+  const budget = req?.body?.budget;
+  const link = req?.body?.link;
+
+  if(!title && !duration && !budget && link) return res.status(400).send("Bad Request: Missing required fields.");
+
+  const indexFilms = films.findIndex(film=>film.id==req.params.id);
+  if(indexFilms<0) return res.status(404).send("Film not found");
+
+  const updateFilm = {...films[indexFilms], ...req.body};
+  films[indexFilms] = updateFilm;
+  res.json(updateFilm);
+});
+
+router.put('/:id',(req,res) => {
+  console.log(`GET /films/${req.params.id}`);
+  const title = req?.body?.title;
+  const duration = req?.body?.duration;
+  const budget = req?.body?.budget;
+  const link = req?.body?.link;
+
+  if(!title || !duration || !budget || !link) return res.status(400).send("Bad Request: Missing required fields.");
+
+  const indexFilms = films.findIndex(film=>film.id==req.params.id);
+  console.log(indexFilms);
+  if(indexFilms===-1){
+    console.log("Je suis iciiiii")
+    const lastItemIndex = films?.length !==0 ? films.length-1 : undefined;
+    const lastId =  lastItemIndex !== undefined ? films[lastItemIndex].id : 0;
+    const nextId = lastId + 1;
+    const newFilm = {
+      id : nextId,
+      title : title,
+      duration : duration,
+      budget : budget,
+      link :link
+    };
+    films.push(newFilm);
+    return res.json(newFilm);
+  }
+
+  const updateFilm = {...films[indexFilms], ...req.body};
+  films[indexFilms] = updateFilm;
+  res.json(updateFilm);
+});
+
 module.exports = router;
