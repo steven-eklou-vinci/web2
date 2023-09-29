@@ -26,7 +26,7 @@ Content-Type: application/json
 }
 
 ### Modify all the properties of a film
-PUT {{baseUrl}}/films/10
+PUT {{baseUrl}}/films/11
 Content-Type: application/json
 
 {

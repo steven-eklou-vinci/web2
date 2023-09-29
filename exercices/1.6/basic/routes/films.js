@@ -109,6 +109,7 @@ router.patch('/:id',(req,res) => {
 
 router.put('/:id',(req,res) => {
   console.log(`GET /films/${req.params.id}`);
+  const id = req?.params.id
   const title = req?.body?.title;
   const duration = req?.body?.duration;
   const budget = req?.body?.budget;
@@ -122,9 +123,9 @@ router.put('/:id',(req,res) => {
     console.log("Je suis iciiiii")
     //const lastItemIndex = films?.length !==0 ? films.length-1 : undefined;
     //const lastId =  lastItemIndex !== undefined ? films[lastItemIndex].id : 0;
-    const nextId = films.length + 1;
+  
     const newFilm = {
-      id : nextId,
+      id : id,
       title : title,
       duration : duration,
       budget : budget,
