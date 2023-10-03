@@ -1,0 +1,41 @@
+
+@baseUrl = http://localhost:3000
+### Create a film 
+POST {{baseUrl}}/films
+Content-Type: application/json
+
+{
+    "title": "Oury et ses amis",
+    "duration": 360,
+    "budget": 700,
+    "link": "https://fr.wikipedia.org/wiki/Naruto_Shippuden:_Blood_Prison"
+}
+
+### Delete a film
+DELETE {{baseUrl}}/films/2
+
+### Patch one of the properties of a film
+PATCH {{baseUrl}}/films/4
+Content-Type: application/json
+
+{
+    "title": "hegviuezrvbuez",
+    //"duration": 
+    "budget": 890
+    //"link":
+}
+
+### Modify all the properties of a film
+PUT {{baseUrl}}/films/11
+Content-Type: application/json
+
+{
+    "title": "LE NOUVEAUX FILMM AHAHHAHAHA",
+    "duration": 514,
+    "budget": 890,
+    "link": "https://e-vinci.github.io/web2/part1/express-api/#exercice_1_6_suppression_modification_de_ressources"
+}
+
+
+### READ all the films
+GET {{baseUrl}}/films
