@@ -1,7 +1,9 @@
 var express = require('express');
 var router = express.Router();
+const { serialize, parse } = require('../utils/json');
+const jsonDbPath = __dirname + '/../data/films.json';
 
-const films = [
+const FILMS = [
   {
     id: 1,
     title: 'Star Wars: The Phantom Menace (Episode I)',
@@ -22,7 +24,7 @@ const films = [
     duration: 242,
     budget: 70,
     link: 'https://en.wikipedia.org/wiki/Zack_Snyder%27s_Justice_League',
-  },
+  }
 ];
 
 
@@ -32,8 +34,9 @@ router.get('/', function (req, res,next) {
   ? Number (req.query['minimum-duration'])
   : undefined;
   console.log(filter);
+  const films = parse(jsonDbPath, FILMS ); 
   if(filter!=undefined && typeof filter==='number'){
-    const filterFilms = films.filter((film)=>film.duration >= filter)
+    const filterFilms = FILMS.filter((film)=>film.duration >= filter)
     console.log("je passe par ici")
     return res.json(filterFilms );
   }
@@ -43,9 +46,9 @@ router.get('/', function (req, res,next) {
 // Read the films whith the id
 router.get('/:id', function (req, res,next) {
   console.log(`GET /films/${req.params.id}`);
-  const indexFilms = films.findIndex((film)=>film.id==req.params.id);
+  const indexFilms = FILMS.findIndex((film)=>film.id==req.params.id);
   if(indexFilms<0) return res.sendStatus(404);
-  res.json(films[indexFilms]);
+  res.json(FILMS[indexFilms]);
 });
 
 //Create a new film
@@ -59,15 +62,15 @@ const link = req?.body?.link.length !== 0 ? req.body.link.length : undefined;
 
 if( !title || !duration || !budget || !link) return res.status(400).send("Bad Request: Missing required fields.");
 if (isNaN(duration) || isNaN(budget)) return res.status(400).send('Bad Request: Duration and budget must be numbers.');
-const ifAlreadyTitle = films.some(film=> film.title===title);
+const ifAlreadyTitle = FILMS.some(film=> film.title===title);
 if(title==="Bleach") return res.status(404).send("There's none films called " + title + " in the world :(");
 if(ifAlreadyTitle) return res.status(409).send("There's already a film named " + title + " :(");
 
 
 
 //pq films[lastItemIndex]?.id
-const lastItemIndex = films?.length !==0 ? films.length-1 : undefined;
-const lastId =  lastItemIndex !== undefined ? films[lastItemIndex].id : 0;
+const lastItemIndex = FILMS?.length !==0 ? FILMS.length-1 : undefined;
+const lastId =  lastItemIndex !== undefined ? FILMS[lastItemIndex].id : 0;
 const nextId = lastId + 1;
 
 const newFilm = {
@@ -77,15 +80,15 @@ const newFilm = {
   budget : budget,
   link :link
 };
-films.push(newFilm);
+FILMS.push(newFilm);
 res.json(newFilm)
 });
 
 router.delete('/:id',(req,res) => {
   console.log(`GET /films/${req.params.id}`);
-  const indexFilms = films.findIndex(film=>film.id==req.params.id);
+  const indexFilms = FILMS.findIndex(film=>film.id==req.params.id);
   if(indexFilms<0) return res.status(404).send("There's none films :( ")
-  const removedFromFilms = films.splice(indexFilms,1);
+  const removedFromFilms = FILMS.splice(indexFilms,1);
   const theRemovedElement = removedFromFilms[0];
   res.json(theRemovedElement);
 });
@@ -99,10 +102,10 @@ router.patch('/:id',(req,res) => {
 
   if(!title && !duration && !budget && link) return res.status(400).send("Bad Request: Missing required fields.");
 
-  const indexFilms = films.findIndex(film=>film.id==req.params.id);
+  const indexFilms = FILMS.findIndex(film=>film.id==req.params.id);
   if(indexFilms<0) return res.status(404).send("Film not found");
 
-  const updateFilm = {...films[indexFilms], ...req.body};
+  const updateFilm = {...FILMS[indexFilms], ...req.body};
   films[indexFilms] = updateFilm;
   res.json(updateFilm);
 });
@@ -118,7 +121,7 @@ router.put('/:id',(req,res) => {
 
   if(!title || !duration || !budget || !link) return res.status(400).send("Bad Request: Missing required fields.");
 
-  const indexFilms = films.findIndex(film=>film.id==req.params.id);
+  const indexFilms = FILMS.findIndex(film=>film.id==req.params.id);
   console.log(indexFilms);
   if(indexFilms===-1){
     console.log("Je suis iciiiii")
@@ -136,8 +139,8 @@ router.put('/:id',(req,res) => {
     return res.json(newFilm);
   }
 
-  const updateFilm = {...films[indexFilms], ...req.body};
-  films[indexFilms] = updateFilm;
+  const updateFilm = {...FILMS[indexFilms], ...req.body};
+  FILMS[indexFilms] = updateFilm;
   res.json(updateFilm);
 });
 
