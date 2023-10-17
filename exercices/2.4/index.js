@@ -15,7 +15,7 @@ function delayedAlert() {
             startingButton.style.display = 'none'
         }, delayInMiliSeconds)
     }
-    timeoutID.
+    
    
 }
 
