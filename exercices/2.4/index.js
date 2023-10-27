@@ -31,4 +31,5 @@ function clearAlert() {
         startingButton.style.display = 'none'
     }
     console.log( "Number of clicks : "+ numberOfClick)
+    console.log("testt")
 }
