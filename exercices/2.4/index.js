@@ -1,5 +1,5 @@
 const startingButton = document.querySelector('#myBtn1');
-const msgSpan = document.querySelector('#mySpan1');
+let msgSpan = document.querySelector('#mySpan1');
 
 startingButton.addEventListener("mouseover", delayedAlert);
 startingButton.addEventListener("click",clearAlert);
@@ -31,5 +31,4 @@ function clearAlert() {
         startingButton.style.display = 'none'
     }
     console.log( "Number of clicks : "+ numberOfClick)
-    console.log("testt")
 }
